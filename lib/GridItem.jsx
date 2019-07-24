@@ -64,7 +64,8 @@ type Props = {
   onDragStop?: GridItemCallback<GridDragEvent>,
   onResize?: GridItemCallback<GridResizeEvent>,
   onResizeStart?: GridItemCallback<GridResizeEvent>,
-  onResizeStop?: GridItemCallback<GridResizeEvent>
+  onResizeStop?: GridItemCallback<GridResizeEvent>,
+  resizeHandles?: ?Array<'s' | 'w' | 'e' | 'n' | 'sw' | 'nw' | 'se' | 'ne'> = ['se']
 };
 
 /**
@@ -357,6 +358,7 @@ export default class GridItem extends React.Component<Props, State> {
         onResizeStop={this.onResizeHandler("onResizeStop")}
         onResizeStart={this.onResizeHandler("onResizeStart")}
         onResize={this.onResizeHandler("onResize")}
+        resizeHandles={this.props.resizeHandles}
       >
         {child}
       </Resizable>
