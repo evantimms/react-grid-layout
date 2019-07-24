@@ -358,7 +358,7 @@ export default class GridItem extends React.Component<Props, State> {
         onResizeStop={this.onResizeHandler("onResizeStop")}
         onResizeStart={this.onResizeHandler("onResizeStart")}
         onResize={this.onResizeHandler("onResize")}
-        resizeHandles={this.props.resizeHandles || "se"}
+        resizeHandles={this.props.resizeHandles || ["se"]}
       >
         {child}
       </Resizable>

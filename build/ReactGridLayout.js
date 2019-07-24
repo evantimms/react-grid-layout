@@ -119,19 +119,19 @@ var ReactGridLayout = (function(_React$Component) {
     this.onLayoutMaybeChanged(this.state.layout, this.props.layout);
   };
 
-  ReactGridLayout.prototype.componentWillReceiveProps = function componentWillReceiveProps(
-    nextProps
+  ReactGridLayout.prototype.componentDidUpdate = function componentDidUpdate(
+    prevProps
   ) {
     var newLayoutBase = void 0;
     // Legacy support for compactType
     // Allow parent to set layout directly.
     if (
-      !(0, _lodash2.default)(nextProps.layout, this.props.layout) ||
-      nextProps.compactType !== this.props.compactType
+      !(0, _lodash2.default)(prevProps.layout, this.props.layout) ||
+      prevProps.compactType !== this.props.compactType
     ) {
-      newLayoutBase = nextProps.layout;
+      newLayoutBase = prevProps.layout;
     } else if (
-      !(0, _utils.childrenEqual)(this.props.children, nextProps.children)
+      !(0, _utils.childrenEqual)(this.props.children, prevProps.children)
     ) {
       // If children change, also regenerate the layout. Use our state
       // as the base in case because it may be more up to date than
@@ -143,9 +143,9 @@ var ReactGridLayout = (function(_React$Component) {
     if (newLayoutBase) {
       var newLayout = (0, _utils.synchronizeLayoutWithChildren)(
         newLayoutBase,
-        nextProps.children,
-        nextProps.cols,
-        this.compactType(nextProps)
+        prevProps.children,
+        prevProps.cols,
+        this.compactType(prevProps)
       );
       var _oldLayout = this.state.layout;
       this.setState({ layout: newLayout });
