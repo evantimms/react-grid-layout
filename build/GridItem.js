@@ -325,6 +325,7 @@ var GridItem = (function(_React$Component) {
       Math.min(maxes.width, maxWidth),
       Math.min(maxes.height, Infinity)
     ];
+    console.log(this.props.resizeHandles);
     return _react2.default.createElement(
       _reactResizable.Resizable,
       {

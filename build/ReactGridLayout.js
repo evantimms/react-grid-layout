@@ -445,7 +445,8 @@ var ReactGridLayout = (function(_React$Component) {
       containerPadding = _props3.containerPadding,
       rowHeight = _props3.rowHeight,
       maxRows = _props3.maxRows,
-      useCSSTransforms = _props3.useCSSTransforms;
+      useCSSTransforms = _props3.useCSSTransforms,
+      resizeHandles = _props3.resizeHandles;
 
     // {...this.state.activeDrag} is pretty slow, actually
 
@@ -466,7 +467,8 @@ var ReactGridLayout = (function(_React$Component) {
         rowHeight: rowHeight,
         isDraggable: false,
         isResizable: false,
-        useCSSTransforms: useCSSTransforms
+        useCSSTransforms: useCSSTransforms,
+        resizeHandles: resizeHandles
       },
       _react2.default.createElement("div", null)
     );
@@ -493,7 +495,8 @@ var ReactGridLayout = (function(_React$Component) {
       isResizable = _props4.isResizable,
       useCSSTransforms = _props4.useCSSTransforms,
       draggableCancel = _props4.draggableCancel,
-      draggableHandle = _props4.draggableHandle;
+      draggableHandle = _props4.draggableHandle,
+      resizeHandles = _props4.resizeHandles;
     var mounted = this.state.mounted;
 
     // Parse 'static'. Any properties defined directly on the grid item will take precedence.
@@ -535,7 +538,8 @@ var ReactGridLayout = (function(_React$Component) {
         minW: l.minW,
         maxH: l.maxH,
         maxW: l.maxW,
-        static: l.static
+        static: l.static,
+        resizeHandles: resizeHandles
       },
       child
     );
