@@ -60,7 +60,7 @@ export type Props = {
   isResizable: boolean,
   preventCollision: boolean,
   useCSSTransforms: boolean,
-  resizeHandles?: ?Array<'s' | 'w' | 'e' | 'n' | 'sw' | 'nw' | 'se' | 'ne'> = ['se']
+  resizeHandles?: ?Array<"s" | "w" | "e" | "n" | "sw" | "nw" | "se" | "ne">,
   // Callbacks
   onLayoutChange: Layout => void,
   onDrag: EventCallback,
@@ -260,16 +260,16 @@ export default class ReactGridLayout extends React.Component<Props, State> {
     this.onLayoutMaybeChanged(this.state.layout, this.props.layout);
   }
 
-  componentWillReceiveProps(nextProps: Props) {
+  componentDidUpdate(prevProps: Props) {
     let newLayoutBase;
     // Legacy support for compactType
     // Allow parent to set layout directly.
     if (
-      !isEqual(nextProps.layout, this.props.layout) ||
-      nextProps.compactType !== this.props.compactType
+      !isEqual(prevProps.layout, this.props.layout) ||
+      prevProps.compactType !== this.props.compactType
     ) {
-      newLayoutBase = nextProps.layout;
-    } else if (!childrenEqual(this.props.children, nextProps.children)) {
+      newLayoutBase = prevProps.layout;
+    } else if (!childrenEqual(this.props.children, prevProps.children)) {
       // If children change, also regenerate the layout. Use our state
       // as the base in case because it may be more up to date than
       // what is in props.
@@ -280,9 +280,9 @@ export default class ReactGridLayout extends React.Component<Props, State> {
     if (newLayoutBase) {
       const newLayout = synchronizeLayoutWithChildren(
         newLayoutBase,
-        nextProps.children,
-        nextProps.cols,
-        this.compactType(nextProps)
+        prevProps.children,
+        prevProps.cols,
+        this.compactType(prevProps)
       );
       const oldLayout = this.state.layout;
       this.setState({ layout: newLayout });
