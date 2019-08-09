@@ -478,7 +478,6 @@ export default class ReactGridLayout extends React.Component<Props, State> {
       l.w = w;
       l.h = h;
       l.x = x;
-      l.y = y
     }
 
     // Create placeholder element (display only)

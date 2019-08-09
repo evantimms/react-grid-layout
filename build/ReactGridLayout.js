@@ -278,7 +278,6 @@ var ReactGridLayout = function (_React$Component) {
       l.w = w;
       l.h = h;
       l.x = x;
-      l.y = y;
     }
 
     // Create placeholder element (display only)

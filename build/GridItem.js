@@ -14,7 +14,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactDraggable = require("react-draggable");
 
-var _reactResizable = require("react-resizable");
+var _reactResizable = require("../../react-resizable");
 
 var _utils = require("./utils");
 
@@ -159,8 +159,6 @@ var GridItem = function (_React$Component) {
         width = _ref.width;
     var _props4 = this.props,
         margin = _props4.margin,
-        maxRows = _props4.maxRows,
-        cols = _props4.cols,
         rowHeight = _props4.rowHeight;
     var _props5 = this.props,
         x = _props5.x,
@@ -175,11 +173,6 @@ var GridItem = function (_React$Component) {
     // w = (width + margin) / (colWidth + margin)
     w = Math.round((width + margin[0]) / (colWidth + margin[0]));
     var h = Math.round((height + margin[1]) / (rowHeight + margin[1]));
-
-    // Capping
-    w = Math.max(Math.min(w, cols - x), 0);
-    h = Math.max(Math.min(h, maxRows - y), 0);
-
     // Calculate X if we 
 
     x = this.state.leftResize ? x + (oldW - w) : x;

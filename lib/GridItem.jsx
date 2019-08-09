@@ -2,7 +2,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { DraggableCore } from "react-draggable";
-import { Resizable } from "react-resizable";
+import { Resizable } from "../../react-resizable";
 import { perc, setTopLeft, setTransform } from "./utils";
 import classNames from "classnames";
 import type { Element as ReactElement, Node as ReactNode } from "react";
@@ -263,7 +263,7 @@ export default class GridItem extends React.Component<Props, State> {
     height: number,
     width: number
   }): { w: number, h: number, x: number, y: number } {
-    const { margin, maxRows, cols, rowHeight } = this.props;
+    const { margin, rowHeight } = this.props;
     let { x, y, w } = this.props;
     const colWidth = this.calcColWidth();
     const oldW = w
@@ -272,12 +272,7 @@ export default class GridItem extends React.Component<Props, State> {
     // ...
     // w = (width + margin) / (colWidth + margin)
     w = Math.round((width + margin[0]) / (colWidth + margin[0]));
-    let h = Math.round((height + margin[1]) / (rowHeight + margin[1]));
-
-    // Capping
-    w = Math.max(Math.min(w, cols - x), 0);
-    h = Math.max(Math.min(h, maxRows - y), 0);
-
+    const h = Math.round((height + margin[1]) / (rowHeight + margin[1]));
     // Calculate X if we 
     
     x = this.state.leftResize ? x + (oldW - w) : x
