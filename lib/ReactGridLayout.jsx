@@ -430,7 +430,7 @@ export default class ReactGridLayout extends React.Component<Props, State> {
     }
   }
 
-  onResizeStart(i: string, w: number, h: number, { e, node }: GridResizeEvent) {
+  onResizeStart(i: string, w: number, h: number, x: number, y: number, { e, node }: GridResizeEvent) {
     const { layout } = this.state;
     var l = getLayoutItem(layout, i);
     if (!l) return;
@@ -443,7 +443,7 @@ export default class ReactGridLayout extends React.Component<Props, State> {
     this.props.onResizeStart(layout, l, l, null, e, node);
   }
 
-  onResize(i: string, w: number, h: number, { e, node }: GridResizeEvent) {
+  onResize(i: string, w: number, h: number, x: number, y: number, { e, node }: GridResizeEvent) {
     const { layout, oldResizeItem } = this.state;
     const { cols, preventCollision } = this.props;
     const l: ?LayoutItem = getLayoutItem(layout, i);
@@ -477,6 +477,8 @@ export default class ReactGridLayout extends React.Component<Props, State> {
       // Set new width and height.
       l.w = w;
       l.h = h;
+      l.x = x;
+      l.y = y
     }
 
     // Create placeholder element (display only)
@@ -498,7 +500,7 @@ export default class ReactGridLayout extends React.Component<Props, State> {
     });
   }
 
-  onResizeStop(i: string, w: number, h: number, { e, node }: GridResizeEvent) {
+  onResizeStop(i: string, w: number, h: number, x: number, y: number, { e, node }: GridResizeEvent) {
     const { layout, oldResizeItem } = this.state;
     const { cols } = this.props;
     var l = getLayoutItem(layout, i);
