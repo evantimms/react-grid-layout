@@ -2,7 +2,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { DraggableCore } from "react-draggable";
-import { Resizable } from "../../react-resizable";
+import { Resizable } from "react-resizable";
 import { perc, setTopLeft, setTransform } from "./utils";
 import classNames from "classnames";
 import type { Element as ReactElement, Node as ReactNode } from "react";
@@ -206,7 +206,7 @@ export default class GridItem extends React.Component<Props, State> {
     };
 
     if (state && state.resizing) {
-      const oldWidth = out.width
+      const oldWidth = out.width;
       out.width = Math.round(state.resizing.width);
       out.height = Math.round(state.resizing.height);
       if (this.state.leftResize) {
@@ -266,16 +266,16 @@ export default class GridItem extends React.Component<Props, State> {
     const { margin, rowHeight } = this.props;
     let { x, y, w } = this.props;
     const colWidth = this.calcColWidth();
-    const oldW = w
+    const oldW = w;
 
     // width = colWidth * w - (margin * (w - 1))
     // ...
     // w = (width + margin) / (colWidth + margin)
     w = Math.round((width + margin[0]) / (colWidth + margin[0]));
     const h = Math.round((height + margin[1]) / (rowHeight + margin[1]));
-    // Calculate X if we 
-    
-    x = this.state.leftResize ? x + (oldW - w) : x
+    // Calculate X if we
+
+    x = this.state.leftResize ? x + (oldW - w) : x;
 
     return { w, h, x, y };
   }
@@ -352,10 +352,7 @@ export default class GridItem extends React.Component<Props, State> {
     const mins = this.calcPosition(0, 0, minW, minH);
     const maxes = this.calcPosition(0, 0, maxW, maxH);
     const minConstraints = [mins.width, mins.height];
-    const maxConstraints = [
-      maxes.width,
-      Math.min(maxes.height, Infinity)
-    ];
+    const maxConstraints = [maxes.width, Math.min(maxes.height, Infinity)];
 
     return (
       <Resizable
@@ -440,7 +437,11 @@ export default class GridItem extends React.Component<Props, State> {
   onResizeHandler(handlerName: string) {
     return (
       e: Event,
-      { node, size, inverted }: { node: HTMLElement, size: Position, inverted: boolean }
+      {
+        node,
+        size,
+        inverted
+      }: { node: HTMLElement, size: Position, inverted: boolean }
     ) => {
       const handler = this.props[handlerName];
       if (!handler) return;
@@ -458,10 +459,10 @@ export default class GridItem extends React.Component<Props, State> {
       w = Math.max(Math.min(w, maxW), minW);
       h = Math.max(Math.min(h, maxH), minH);
 
-      if (handlerName === 'onResizeStart' && inverted) {
-        this.setState({ leftResize: true })
-      } else if (handlerName === 'onResizeStop') {
-        this.setState({ leftResize: false })
+      if (handlerName === "onResizeStart" && inverted) {
+        this.setState({ leftResize: true });
+      } else if (handlerName === "onResizeStop") {
+        this.setState({ leftResize: false });
       }
 
       this.setState({ resizing: handlerName === "onResizeStop" ? null : size });

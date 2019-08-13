@@ -2,7 +2,19 @@
 
 exports.__esModule = true;
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _extends =
+  Object.assign ||
+  function(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
 
 var _react = require("react");
 
@@ -14,7 +26,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactDraggable = require("react-draggable");
 
-var _reactResizable = require("../../react-resizable");
+var _reactResizable = require("react-resizable");
 
 var _utils = require("./utils");
 
@@ -22,18 +34,52 @@ var _classnames = require("classnames");
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError(
+      "this hasn't been initialised - super() hasn't been called"
+    );
+  }
+  return call && (typeof call === "object" || typeof call === "function")
+    ? call
+    : self;
+}
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError(
+      "Super expression must either be null or a function, not " +
+        typeof superClass
+    );
+  }
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      enumerable: false,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass)
+    Object.setPrototypeOf
+      ? Object.setPrototypeOf(subClass, superClass)
+      : (subClass.__proto__ = superClass);
+}
 
 /**
  * An individual item within a ReactGridLayout.
  */
-var GridItem = function (_React$Component) {
+var GridItem = (function(_React$Component) {
   _inherits(GridItem, _React$Component);
 
   function GridItem() {
@@ -41,26 +87,43 @@ var GridItem = function (_React$Component) {
 
     _classCallCheck(this, GridItem);
 
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+    for (
+      var _len = arguments.length, args = Array(_len), _key = 0;
+      _key < _len;
+      _key++
+    ) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$Component.call.apply(_React$Component, [this].concat(args))), _this), _this.state = {
-      resizing: null,
-      dragging: null,
-      className: ""
-    }, _temp), _possibleConstructorReturn(_this, _ret);
+    return (
+      (_ret =
+        ((_temp =
+          ((_this = _possibleConstructorReturn(
+            this,
+            _React$Component.call.apply(_React$Component, [this].concat(args))
+          )),
+          _this)),
+        (_this.state = {
+          resizing: null,
+          dragging: null,
+          className: ""
+        }),
+        _temp)),
+      _possibleConstructorReturn(_this, _ret)
+    );
   }
 
   // Helper for generating column width
   GridItem.prototype.calcColWidth = function calcColWidth() {
     var _props = this.props,
-        margin = _props.margin,
-        containerPadding = _props.containerPadding,
-        containerWidth = _props.containerWidth,
-        cols = _props.cols;
+      margin = _props.margin,
+      containerPadding = _props.containerPadding,
+      containerWidth = _props.containerWidth,
+      cols = _props.cols;
 
-    return (containerWidth - margin[0] * (cols - 1) - containerPadding[0] * 2) / cols;
+    return (
+      (containerWidth - margin[0] * (cols - 1) - containerPadding[0] * 2) / cols
+    );
   };
 
   /**
@@ -73,12 +136,11 @@ var GridItem = function (_React$Component) {
    * @return {Object}                Object containing coords.
    */
 
-
   GridItem.prototype.calcPosition = function calcPosition(x, y, w, h, state) {
     var _props2 = this.props,
-        margin = _props2.margin,
-        containerPadding = _props2.containerPadding,
-        rowHeight = _props2.rowHeight;
+      margin = _props2.margin,
+      containerPadding = _props2.containerPadding,
+      rowHeight = _props2.rowHeight;
 
     var colWidth = this.calcColWidth();
 
@@ -88,8 +150,14 @@ var GridItem = function (_React$Component) {
       // 0 * Infinity === NaN, which causes problems with resize constraints;
       // Fix this if it occurs.
       // Note we do it here rather than later because Math.round(Infinity) causes deopt
-      width: w === Infinity ? w : Math.round(colWidth * w + Math.max(0, w - 1) * margin[0]),
-      height: h === Infinity ? h : Math.round(rowHeight * h + Math.max(0, h - 1) * margin[1])
+      width:
+        w === Infinity
+          ? w
+          : Math.round(colWidth * w + Math.max(0, w - 1) * margin[0]),
+      height:
+        h === Infinity
+          ? h
+          : Math.round(rowHeight * h + Math.max(0, h - 1) * margin[1])
     };
 
     if (state && state.resizing) {
@@ -117,15 +185,14 @@ var GridItem = function (_React$Component) {
    * @return {Object} x and y in grid units.
    */
 
-
   GridItem.prototype.calcXY = function calcXY(top, left) {
     var _props3 = this.props,
-        margin = _props3.margin,
-        cols = _props3.cols,
-        rowHeight = _props3.rowHeight,
-        w = _props3.w,
-        h = _props3.h,
-        maxRows = _props3.maxRows;
+      margin = _props3.margin,
+      cols = _props3.cols,
+      rowHeight = _props3.rowHeight,
+      w = _props3.w,
+      h = _props3.h,
+      maxRows = _props3.maxRows;
 
     var colWidth = this.calcColWidth();
 
@@ -153,17 +220,16 @@ var GridItem = function (_React$Component) {
    * @return {Object} w, h as grid units.
    */
 
-
   GridItem.prototype.calcNewDimensions = function calcNewDimensions(_ref) {
     var height = _ref.height,
-        width = _ref.width;
+      width = _ref.width;
     var _props4 = this.props,
-        margin = _props4.margin,
-        rowHeight = _props4.rowHeight;
+      margin = _props4.margin,
+      rowHeight = _props4.rowHeight;
     var _props5 = this.props,
-        x = _props5.x,
-        y = _props5.y,
-        w = _props5.w;
+      x = _props5.x,
+      y = _props5.y,
+      w = _props5.w;
 
     var colWidth = this.calcColWidth();
     var oldW = w;
@@ -173,7 +239,7 @@ var GridItem = function (_React$Component) {
     // w = (width + margin) / (colWidth + margin)
     w = Math.round((width + margin[0]) / (colWidth + margin[0]));
     var h = Math.round((height + margin[1]) / (rowHeight + margin[1]));
-    // Calculate X if we 
+    // Calculate X if we
 
     x = this.state.leftResize ? x + (oldW - w) : x;
 
@@ -191,13 +257,11 @@ var GridItem = function (_React$Component) {
    * @return {Object}     Style object.
    */
 
-
   GridItem.prototype.createStyle = function createStyle(pos) {
     var _props6 = this.props,
-        usePercentages = _props6.usePercentages,
-        containerWidth = _props6.containerWidth,
-        useCSSTransforms = _props6.useCSSTransforms;
-
+      usePercentages = _props6.usePercentages,
+      containerWidth = _props6.containerWidth,
+      useCSSTransforms = _props6.useCSSTransforms;
 
     var style = void 0;
     // CSS Transforms support (default)
@@ -223,7 +287,6 @@ var GridItem = function (_React$Component) {
    * @return {Element}          Child wrapped in Draggable.
    */
 
-
   GridItem.prototype.mixinDraggable = function mixinDraggable(child) {
     return _react2.default.createElement(
       _reactDraggable.DraggableCore,
@@ -232,7 +295,9 @@ var GridItem = function (_React$Component) {
         onDrag: this.onDragHandler("onDrag"),
         onStop: this.onDragHandler("onDragStop"),
         handle: this.props.handle,
-        cancel: ".react-resizable-handle" + (this.props.cancel ? "," + this.props.cancel : "")
+        cancel:
+          ".react-resizable-handle" +
+          (this.props.cancel ? "," + this.props.cancel : "")
       },
       child
     );
@@ -245,15 +310,14 @@ var GridItem = function (_React$Component) {
    * @return {Element}          Child wrapped in Resizable.
    */
 
-
   GridItem.prototype.mixinResizable = function mixinResizable(child, position) {
     var _props7 = this.props,
-        cols = _props7.cols,
-        x = _props7.x,
-        minW = _props7.minW,
-        minH = _props7.minH,
-        maxW = _props7.maxW,
-        maxH = _props7.maxH;
+      cols = _props7.cols,
+      x = _props7.x,
+      minW = _props7.minW,
+      minH = _props7.minH,
+      maxW = _props7.maxW,
+      maxH = _props7.maxH;
 
     // This is the max possible width - doesn't go to infinity because of the width of the window
 
@@ -290,14 +354,13 @@ var GridItem = function (_React$Component) {
    * @return {Function}           Handler function.
    */
 
-
   GridItem.prototype.onDragHandler = function onDragHandler(handlerName) {
     var _this2 = this;
 
-    return function (e, _ref2) {
+    return function(e, _ref2) {
       var node = _ref2.node,
-          deltaX = _ref2.deltaX,
-          deltaY = _ref2.deltaY;
+        deltaX = _ref2.deltaX,
+        deltaY = _ref2.deltaY;
 
       var handler = _this2.props[handlerName];
       if (!handler) return;
@@ -306,40 +369,49 @@ var GridItem = function (_React$Component) {
 
       // Get new XY
       switch (handlerName) {
-        case "onDragStart":
-          {
-            // TODO: this wont work on nested parents
-            var offsetParent = node.offsetParent;
+        case "onDragStart": {
+          // TODO: this wont work on nested parents
+          var offsetParent = node.offsetParent;
 
-            if (!offsetParent) return;
-            var parentRect = offsetParent.getBoundingClientRect();
-            var clientRect = node.getBoundingClientRect();
-            newPosition.left = clientRect.left - parentRect.left + offsetParent.scrollLeft;
-            newPosition.top = clientRect.top - parentRect.top + offsetParent.scrollTop;
-            _this2.setState({ dragging: newPosition });
-            break;
-          }
+          if (!offsetParent) return;
+          var parentRect = offsetParent.getBoundingClientRect();
+          var clientRect = node.getBoundingClientRect();
+          newPosition.left =
+            clientRect.left - parentRect.left + offsetParent.scrollLeft;
+          newPosition.top =
+            clientRect.top - parentRect.top + offsetParent.scrollTop;
+          _this2.setState({ dragging: newPosition });
+          break;
+        }
         case "onDrag":
-          if (!_this2.state.dragging) throw new Error("onDrag called before onDragStart.");
+          if (!_this2.state.dragging)
+            throw new Error("onDrag called before onDragStart.");
           newPosition.left = _this2.state.dragging.left + deltaX;
           newPosition.top = _this2.state.dragging.top + deltaY;
           _this2.setState({ dragging: newPosition });
           break;
         case "onDragStop":
-          if (!_this2.state.dragging) throw new Error("onDragEnd called before onDragStart.");
+          if (!_this2.state.dragging)
+            throw new Error("onDragEnd called before onDragStart.");
           newPosition.left = _this2.state.dragging.left;
           newPosition.top = _this2.state.dragging.top;
           _this2.setState({ dragging: null });
           break;
         default:
-          throw new Error("onDragHandler called with unrecognized handlerName: " + handlerName);
+          throw new Error(
+            "onDragHandler called with unrecognized handlerName: " + handlerName
+          );
       }
 
       var _calcXY = _this2.calcXY(newPosition.top, newPosition.left),
-          x = _calcXY.x,
-          y = _calcXY.y;
+        x = _calcXY.x,
+        y = _calcXY.y;
 
-      return handler.call(_this2, _this2.props.i, x, y, { e: e, node: node, newPosition: newPosition });
+      return handler.call(_this2, _this2.props.i, x, y, {
+        e: e,
+        node: node,
+        newPosition: newPosition
+      });
     };
   };
 
@@ -352,35 +424,33 @@ var GridItem = function (_React$Component) {
    * @return {Function}           Handler function.
    */
 
-
   GridItem.prototype.onResizeHandler = function onResizeHandler(handlerName) {
     var _this3 = this;
 
-    return function (e, _ref3) {
+    return function(e, _ref3) {
       var node = _ref3.node,
-          size = _ref3.size,
-          inverted = _ref3.inverted;
+        size = _ref3.size,
+        inverted = _ref3.inverted;
 
       var handler = _this3.props[handlerName];
       if (!handler) return;
       var _props8 = _this3.props,
-          cols = _props8.cols,
-          i = _props8.i,
-          maxW = _props8.maxW,
-          minW = _props8.minW,
-          maxH = _props8.maxH,
-          minH = _props8.minH;
+        cols = _props8.cols,
+        i = _props8.i,
+        maxW = _props8.maxW,
+        minW = _props8.minW,
+        maxH = _props8.maxH,
+        minH = _props8.minH;
 
       // Get new WHXY
 
       var _calcNewDimensions = _this3.calcNewDimensions(size),
-          w = _calcNewDimensions.w,
-          h = _calcNewDimensions.h,
-          x = _calcNewDimensions.x,
-          y = _calcNewDimensions.y;
+        w = _calcNewDimensions.w,
+        h = _calcNewDimensions.h,
+        x = _calcNewDimensions.x,
+        y = _calcNewDimensions.y;
 
       // Cap w at numCols
-
 
       w = Math.min(w, cols - x);
       // Ensure w is at least 1
@@ -390,13 +460,15 @@ var GridItem = function (_React$Component) {
       w = Math.max(Math.min(w, maxW), minW);
       h = Math.max(Math.min(h, maxH), minH);
 
-      if (handlerName === 'onResizeStart' && inverted) {
+      if (handlerName === "onResizeStart" && inverted) {
         _this3.setState({ leftResize: true });
-      } else if (handlerName === 'onResizeStop') {
+      } else if (handlerName === "onResizeStop") {
         _this3.setState({ leftResize: false });
       }
 
-      _this3.setState({ resizing: handlerName === "onResizeStop" ? null : size });
+      _this3.setState({
+        resizing: handlerName === "onResizeStop" ? null : size
+      });
 
       handler.call(_this3, i, w, h, x, y, { e: e, node: node, size: size });
     };
@@ -404,29 +476,38 @@ var GridItem = function (_React$Component) {
 
   GridItem.prototype.render = function render() {
     var _props9 = this.props,
-        x = _props9.x,
-        y = _props9.y,
-        w = _props9.w,
-        h = _props9.h,
-        isDraggable = _props9.isDraggable,
-        isResizable = _props9.isResizable,
-        useCSSTransforms = _props9.useCSSTransforms;
-
+      x = _props9.x,
+      y = _props9.y,
+      w = _props9.w,
+      h = _props9.h,
+      isDraggable = _props9.isDraggable,
+      isResizable = _props9.isResizable,
+      useCSSTransforms = _props9.useCSSTransforms;
 
     var pos = this.calcPosition(x, y, w, h, this.state);
     var child = _react2.default.Children.only(this.props.children);
 
     // Create the child element. We clone the existing element but modify its className and style.
     var newChild = _react2.default.cloneElement(child, {
-      className: (0, _classnames2.default)("react-grid-item", child.props.className, this.props.className, {
-        static: this.props.static,
-        resizing: Boolean(this.state.resizing),
-        "react-draggable": isDraggable,
-        "react-draggable-dragging": Boolean(this.state.dragging),
-        cssTransforms: useCSSTransforms
-      }),
+      className: (0, _classnames2.default)(
+        "react-grid-item",
+        child.props.className,
+        this.props.className,
+        {
+          static: this.props.static,
+          resizing: Boolean(this.state.resizing),
+          "react-draggable": isDraggable,
+          "react-draggable-dragging": Boolean(this.state.dragging),
+          cssTransforms: useCSSTransforms
+        }
+      ),
       // We can set the width and height on the child, but unfortunately we can't set the position.
-      style: _extends({}, this.props.style, child.props.style, this.createStyle(pos))
+      style: _extends(
+        {},
+        this.props.style,
+        child.props.style,
+        this.createStyle(pos)
+      )
     });
 
     // Resizable support. This is usually on but the user can toggle it off.
@@ -439,7 +520,7 @@ var GridItem = function (_React$Component) {
   };
 
   return GridItem;
-}(_react2.default.Component);
+})(_react2.default.Component);
 
 GridItem.propTypes = {
   // Children must be only a single element
@@ -463,25 +544,29 @@ GridItem.propTypes = {
   minW: function minW(props, propName) {
     var value = props[propName];
     if (typeof value !== "number") return new Error("minWidth not Number");
-    if (value > props.w || value > props.maxW) return new Error("minWidth larger than item width/maxWidth");
+    if (value > props.w || value > props.maxW)
+      return new Error("minWidth larger than item width/maxWidth");
   },
 
   maxW: function maxW(props, propName) {
     var value = props[propName];
     if (typeof value !== "number") return new Error("maxWidth not Number");
-    if (value < props.w || value < props.minW) return new Error("maxWidth smaller than item width/minWidth");
+    if (value < props.w || value < props.minW)
+      return new Error("maxWidth smaller than item width/minWidth");
   },
 
   minH: function minH(props, propName) {
     var value = props[propName];
     if (typeof value !== "number") return new Error("minHeight not Number");
-    if (value > props.h || value > props.maxH) return new Error("minHeight larger than item height/maxHeight");
+    if (value > props.h || value > props.maxH)
+      return new Error("minHeight larger than item height/maxHeight");
   },
 
   maxH: function maxH(props, propName) {
     var value = props[propName];
     if (typeof value !== "number") return new Error("maxHeight not Number");
-    if (value < props.h || value < props.minH) return new Error("maxHeight smaller than item height/minHeight");
+    if (value < props.h || value < props.minH)
+      return new Error("maxHeight smaller than item height/minHeight");
   },
 
   // ID is nice to have for callbacks
