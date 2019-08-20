@@ -430,12 +430,20 @@ export default class ReactGridLayout extends React.Component<Props, State> {
     }
   }
 
-  onResizeStart(i: string, w: number, h: number, x: number, y: number, { e, node }: GridResizeEvent) {
-    const { layout } = this.state;
+  onResizeStart(
+    i: string,
+    w: number,
+    h: number,
+    x: number,
+    y: number,
+    { e, node, leftResize }: GridResizeEvent
+  ) {
+    const layout = leftResize ? this.state.layout.reverse() : this.state.layout;
     var l = getLayoutItem(layout, i);
     if (!l) return;
 
     this.setState({
+      layout,
       oldResizeItem: cloneLayoutItem(l),
       oldLayout: this.state.layout
     });
@@ -443,7 +451,14 @@ export default class ReactGridLayout extends React.Component<Props, State> {
     this.props.onResizeStart(layout, l, l, null, e, node);
   }
 
-  onResize(i: string, w: number, h: number, x: number, y: number, { e, node }: GridResizeEvent) {
+  onResize(
+    i: string,
+    w: number,
+    h: number,
+    x: number,
+    y: number,
+    { e, node, leftResize }: GridResizeEvent
+  ) {
     const { layout, oldResizeItem } = this.state;
     const { cols, preventCollision } = this.props;
     const l: ?LayoutItem = getLayoutItem(layout, i);
@@ -494,24 +509,30 @@ export default class ReactGridLayout extends React.Component<Props, State> {
 
     // Re-compact the layout and set the drag placeholder.
     this.setState({
-      layout: compact(layout, this.compactType(), cols),
+      layout: compact(layout, this.compactType(), cols, leftResize),
       activeDrag: placeholder
     });
   }
 
-  onResizeStop(i: string, w: number, h: number, x: number, y: number, { e, node }: GridResizeEvent) {
+  onResizeStop(
+    i: string,
+    w: number,
+    h: number,
+    x: number,
+    y: number,
+    { e, node, leftResize }: GridResizeEvent
+  ) {
     const { layout, oldResizeItem } = this.state;
     const { cols } = this.props;
     var l = getLayoutItem(layout, i);
-
     this.props.onResizeStop(layout, oldResizeItem, l, null, e, node);
 
     // Set state
-    const newLayout = compact(layout, this.compactType(), cols);
+    const newLayout = compact(layout, this.compactType(), cols, leftResize);
     const { oldLayout } = this.state;
     this.setState({
       activeDrag: null,
-      layout: newLayout,
+      layout: leftResize ? layout.reverse() : layout,
       oldResizeItem: null,
       oldLayout: null
     });

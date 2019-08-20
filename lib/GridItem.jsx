@@ -459,15 +459,14 @@ export default class GridItem extends React.Component<Props, State> {
       w = Math.max(Math.min(w, maxW), minW);
       h = Math.max(Math.min(h, maxH), minH);
 
-      if (handlerName === "onResizeStart" && inverted) {
-        this.setState({ leftResize: true });
-      } else if (handlerName === "onResizeStop") {
-        this.setState({ leftResize: false });
-      }
+      let leftResize = !!inverted;
 
-      this.setState({ resizing: handlerName === "onResizeStop" ? null : size });
+      this.setState({
+        resizing: handlerName === "onResizeStop" ? null : size,
+        leftResize
+      });
 
-      handler.call(this, i, w, h, x, y, { e, node, size });
+      handler.call(this, i, w, h, x, y, { e, node, size, leftResize });
     };
   }
 

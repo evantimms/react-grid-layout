@@ -460,17 +460,19 @@ var GridItem = (function(_React$Component) {
       w = Math.max(Math.min(w, maxW), minW);
       h = Math.max(Math.min(h, maxH), minH);
 
-      if (handlerName === "onResizeStart" && inverted) {
-        _this3.setState({ leftResize: true });
-      } else if (handlerName === "onResizeStop") {
-        _this3.setState({ leftResize: false });
-      }
+      var leftResize = !!inverted;
 
       _this3.setState({
-        resizing: handlerName === "onResizeStop" ? null : size
+        resizing: handlerName === "onResizeStop" ? null : size,
+        leftResize: leftResize
       });
 
-      handler.call(_this3, i, w, h, x, y, { e: e, node: node, size: size });
+      handler.call(_this3, i, w, h, x, y, {
+        e: e,
+        node: node,
+        size: size,
+        leftResize: leftResize
+      });
     };
   };
 
