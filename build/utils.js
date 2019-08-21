@@ -141,9 +141,7 @@ function compact(layout, compactType, cols, invertSort) {
   // Statics go in the compareWith array right away so items flow around them.
   var compareWith = getStatics(layout);
   // We go through the items by row and column. Order depends on the direction of the resize
-  var sorted = invertSort
-    ? layout
-    : sortLayoutItems(layout, compactType, invertSort);
+  var sorted = sortLayoutItems(layout, compactType, invertSort);
   // Holding for new items.
   var out = Array(layout.length);
 
@@ -556,14 +554,18 @@ function setTopLeft(_ref2) {
  * @return {Array} Array of layout objects.
  * @return {Array}        Layout, sorted static items first.
  */
-function sortLayoutItems(layout, compactType) {
-  if (compactType === "horizontal") return sortLayoutItemsByColRow(layout);
-  else return sortLayoutItemsByRowCol(layout);
+function sortLayoutItems(layout, compactType, invertSort) {
+  if (compactType === "horizontal")
+    return sortLayoutItemsByColRow(layout, invertSort);
+  else return sortLayoutItemsByRowCol(layout, invertSort);
 }
 
-function sortLayoutItemsByRowCol(layout) {
+function sortLayoutItemsByRowCol(layout, invertSort) {
   return [].concat(layout).sort(function(a, b) {
-    if (a.y > b.y || (a.y === b.y && a.x > b.x)) {
+    // b is chart, a is map, we want mapShouldMove to be false
+    var mapShouldMove =
+      a.y > b.y || (a.y === b.y && (invertSort ? a.x < b.x : a.x > b.x));
+    if (mapShouldMove) {
       return 1;
     } else if (a.y === b.y && a.x === b.x) {
       // Without this, we can get different sort results in IE vs. Chrome/FF
